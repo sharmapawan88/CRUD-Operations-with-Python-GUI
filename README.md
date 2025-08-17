@@ -12,7 +12,7 @@ Create • Read • Update • Delete — All in one elegant GUI.
 ## 🚀 Features
 ✅ Add new clothes items to MongoDB  
 ✅ View stored records with a user-friendly interface  
-✅ Update existing plant details  
+✅ Update existing cloth details  
 ✅ Delete unwanted records instantly  
 ✅ Beautiful Tkinter GUI with custom-styled buttons
 
