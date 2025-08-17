@@ -21,7 +21,7 @@ Create • Read • Update • Delete — All in one elegant GUI.
 ---
 
 ## 📷 Screenshot
-
+![image alt](https://github.com/sharmapawan88/CRUD-Operations-with-Python-GUI/blob/main/Screenshot.png.jpg?raw=true)
 ----
 
 ## 🛠 Tech Stack
