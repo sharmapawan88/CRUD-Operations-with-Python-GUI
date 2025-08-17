@@ -10,7 +10,7 @@ collection = db["items"]
 #  Main Window
 root = tk.Tk()
 root.title("👕 Clothes Store")
-root.geometry("550x500")
+root.geometry("600x550")
 root.configure(bg="#f3e5f5")  # light purple background
 
 #  Styling
@@ -47,10 +47,13 @@ def create_item():
         messagebox.showerror("❌ Error", "Fill all fields!")
 
 def read_items():
-    """Display all clothes"""
+    """Display all clothes in table"""
+    for row in tree.get_children():
+        tree.delete(row)  # clear old rows
+
     items = collection.find()
-    output = "\n".join([f"{item['name']} - ₹{item['price']}" for item in items])
-    output_label.config(text=output if output else "No clothes found.")
+    for item in items:
+        tree.insert("", tk.END, values=(item["name"], f"₹{item['price']}"))
 
 def update_item():
     """Update price of a cloth"""
@@ -99,9 +102,23 @@ ttk.Button(btn_frame, text="📜 View Clothes", command=read_items).grid(row=0, 
 ttk.Button(btn_frame, text="✏ Update Price", command=update_item).grid(row=1, column=0, padx=10, pady=5)
 ttk.Button(btn_frame, text="❌ Delete Cloth", command=delete_item).grid(row=1, column=1, padx=10, pady=5)
 
-#  Output
-output_label = tk.Label(root, text="", font=("Helvetica", 11), bg="#f3e5f5", justify="left")
-output_label.pack(pady=10)
+# ===== Output Table =====
+table_frame = tk.Frame(root, bg="#f3e5f5")
+table_frame.pack(pady=10)
+
+# Scrollbar
+scrollbar = ttk.Scrollbar(table_frame)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+columns = ("name", "price")
+tree = ttk.Treeview(table_frame, columns=columns, show="headings", height=10, yscrollcommand=scrollbar.set)
+tree.heading("name", text="Cloth Name")
+tree.heading("price", text="Price (₹)")
+tree.column("name", width=300, anchor="center")
+tree.column("price", width=150, anchor="center")
+tree.pack()
+
+scrollbar.config(command=tree.yview)
 
 # Run App
 root.mainloop()
